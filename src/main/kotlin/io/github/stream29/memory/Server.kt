@@ -29,5 +29,9 @@ fun Application.configureServer() {
         get("/retrieve") {
             call.respond(session.retrieve())
         }
+        post("/generate") {
+            val input = call.receive<List<TextChatMessage>>()
+            call.respond(generate(input))
+        }
     }
 }
