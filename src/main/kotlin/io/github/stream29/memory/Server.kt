@@ -30,8 +30,8 @@ fun Application.configureServer() {
             call.respond(session.retrieve())
         }
         post("/generate") {
-            val input = call.receive<List<TextChatMessage>>()
-            call.respond(generate(input))
+            val input = call.receive<GenerateRequest>()
+            call.respond(generate(input.chatMessages, input.thinking))
         }
     }
 }

@@ -12,13 +12,14 @@ fun String.normalized(): String {
     return substring(indexOfFirst { it == '{' }, indexOfLast { it == '}' } + 1)
 }
 
-suspend inline fun <reified T, reified R> generate(input: T): R {
+suspend inline fun <reified T, reified R> generate(input: T, thinking: Boolean = true): R {
     val serializedInput = globalJson.encodeToString(input)
     val rawOutput = generate(
         listOf(
             TextChatMessage("system", systemPromptOf<T, R>()),
             TextChatMessage("user", serializedInput)
-        )
+        ),
+        thinking
     )
     try {
         return globalJson.decodeFromString(rawOutput.normalized())

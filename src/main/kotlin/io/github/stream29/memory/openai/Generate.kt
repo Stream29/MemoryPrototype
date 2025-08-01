@@ -12,7 +12,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.withLock
 
-suspend fun generate(history: List<TextChatMessage>): String {
+suspend fun generate(history: List<TextChatMessage>, thinking: Boolean = true): String {
     val request = ChatCompletionRequest(
         model = "qwen-turbo-2025-07-15",
         messages = history.map {
@@ -20,7 +20,8 @@ suspend fun generate(history: List<TextChatMessage>): String {
                 it.role,
                 TextContent(it.text)
             )
-        }
+        },
+        enableThinking = thinking,
     )
     val stream = generate(request)
     val logChannel = Channel<String?>(Channel.UNLIMITED)

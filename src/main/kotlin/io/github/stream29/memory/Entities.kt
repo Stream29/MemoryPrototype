@@ -17,3 +17,10 @@ data class MemoryRetrieveResult(
     val visibleLongTermMemory: List<LongTermMemory>,
     val instruction: String
 )
+
+@Serializable
+data class GenerateRequest(
+    @SerialName("chat_messages")
+    val chatMessages: List<TextChatMessage>,
+    val thinking: Boolean = true
+)

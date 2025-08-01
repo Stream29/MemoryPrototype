@@ -52,9 +52,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/TextChatMessage'
+              $ref: '#/components/schemas/GenerateRequest'
       responses:
         '200':
           description: Successful operation
@@ -117,3 +115,17 @@ components:
         - name
         - abstract
         - memory_block
+
+    GenerateRequest:
+      type: object
+      properties:
+        chat_messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextChatMessage'
+        thinking:
+          type: boolean
+          description: Whether to enable thinking process
+          default: true
+      required:
+        - chat_messages

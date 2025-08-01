@@ -36,7 +36,10 @@ class MemorySessionImpl : MemorySession {
                 update = updateMemoryResponse.updateLongTermMemory
             )
             val updateLongTermMemoryResponse =
-                generate<UpdateLongTermMemoryRequest, UpdateLongTermMemoryResponse>(updateLongTermMemoryRequest)
+                generate<UpdateLongTermMemoryRequest, UpdateLongTermMemoryResponse>(
+                    updateLongTermMemoryRequest,
+                    false
+                )
             longTermMemories = updateLongTermMemoryResponse.updatedMemories
             visibleList = updateLongTermMemoryResponse.visibleList
             state = MemoryRetrieveResult(
