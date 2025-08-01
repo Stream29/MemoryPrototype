@@ -1,15 +1,8 @@
-package ai.dify.stream
+package io.github.stream29.memory
 
 import io.github.stream29.jsonschemagenerator.Description
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
-@Serializable
-@Description("A message between the chat of the user and the LLM.")
-data class TextChatMessage(
-    val role: String,
-    val text: String
-)
 
 @Serializable
 @Description("A memory block that stores information about the conversation on specific topics.")
