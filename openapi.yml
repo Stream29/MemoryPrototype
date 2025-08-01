@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: Memory Prototype API
+  description: API for managing memory sessions with short-term and long-term memory components
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /update:
+    put:
+      summary: Update memory session
+      description: Updates the memory session with new chat messages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/TextChatMessage'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /retrieve:
+    get:
+      summary: Retrieve memory state
+      description: Retrieves the current state of the memory session
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemoryRetrieveResult'
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    TextChatMessage:
+      type: object
+      properties:
+        role:
+          type: string
+          description: The role of the message sender
+        text:
+          type: string
+          description: The text content of the message
+      required:
+        - role
+        - text
+
+    MemoryRetrieveResult:
+      type: object
+      properties:
+        short_term_memory:
+          type: string
+          description: Short term memory that contains recent actions, plans and ongoing processes
+        visible_long_term_memory:
+          type: array
+          items:
+            $ref: '#/components/schemas/LongTermMemory'
+          description: Long term memory relevant to current context
+        instruction:
+          type: string
+          description: Immortal and important instruction from user
+      required:
+        - short_term_memory
+        - visible_long_term_memory
+        - instruction
+
+    LongTermMemory:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The unique name of the memory block, used to identify it
+        abstract:
+          type: string
+          description: Tells what the memory block is about
+        memory_block:
+          type: string
+          description: The content of the memory block
+      required:
+        - name
+        - abstract
+        - memory_block

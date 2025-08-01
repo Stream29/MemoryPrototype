@@ -14,8 +14,8 @@ data class UpdateMemoryRequest(
     @SerialName("short_term_memory")
     val shortTermMemory: String,
     @Description("Long term memory relevant to current context.")
-    @SerialName("visible_long_term_memory")
-    val visibleLongTermMemory: String,
+    @SerialName("visible_long_term_memories")
+    val visibleLongTermMemories: List<LongTermMemory>,
     @Description("Immortal and important instruction from user.")
     val instruction: String,
 )
@@ -34,8 +34,39 @@ data class UpdateMemoryResponse(
 )
 
 @Serializable
+data class LongTermMemory(
+    @Description("The unique name of the memory block, used to identify it.")
+    val name: String,
+    @Description("Tells what the memory block is about.")
+    val abstract: String,
+    @Description("The content of the memory block.")
+    @SerialName("memory_block")
+    val memoryBlock: String
+)
+
+@Serializable
 data class UpdateLongTermMemoryRequest(
+    @Description("Latest chat history.")
+    @SerialName("chat_messages")
     val chatMessages: List<TextChatMessage>,
+    @Description("Short term memory that contains recent actions, plans and ongoing processes.")
+    @SerialName("short_term_memory")
     val shortTermMemory: String,
+    @Description("Long term memory that store information about the conversation on specific topics.")
+    @SerialName("long_term_memories")
+    val longTermMemories: List<LongTermMemory>,
+    @Description("List of memory names that regarded relevant to current context")
+    val visibleList: List<String>,
+    @Description("New information that needs to be recorded into long term memory.")
     val update: String,
+)
+
+@Serializable
+data class UpdateLongTermMemoryResponse(
+    @Description("Updated value of `visible_list`")
+    @SerialName("visible_list")
+    val visibleList: List<String>,
+    @Description("Updated value of `long_term_memories`")
+    @SerialName("updated_memories")
+    val updatedMemories: List<LongTermMemory>
 )

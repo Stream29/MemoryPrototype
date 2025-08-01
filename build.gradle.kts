@@ -17,6 +17,12 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:3.2.2")
     implementation("io.ktor:ktor-client-content-negotiation:3.2.2")
 
+    implementation("ch.qos.logback:logback-classic:1.5.18")
+    implementation("io.ktor:ktor-server-core:3.2.2")
+    implementation("io.ktor:ktor-server-cio:3.2.2")
+    implementation("io.ktor:ktor-server-call-logging:3.2.2")
+    implementation("io.ktor:ktor-server-content-negotiation:3.2.2")
+
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
